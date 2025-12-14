@@ -102,7 +102,7 @@ def search_students():
 
     clauses, params = [], []
     if fullname:
-        clauses.append("name LIKE %s")
+        clauses.append("fullname LIKE %s")
         params.append(f"%{fullname}%")
     if course:
         clauses.append("course = %s")
@@ -164,7 +164,7 @@ def update_student(sid):
     try:
         cursor = conn.cursor()
         cursor.execute(
-            "UPDATE students SET fullname=%s, course=%s, year_level=%s WHERE id=%s;",
+            "UPDATE students SET fullname=%s, course=%s, year_level=%s WHERE student_id=%s;"
             (data['fullname'], data['course'], data['year_level'], sid)
         )
         conn.commit()

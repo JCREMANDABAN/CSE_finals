@@ -5,5 +5,6 @@ def get_db_connection():
         host="localhost",
         user="root",
         password="root",                                 
-        database="cse1_db"
+        database="cse1_db",
+        port=3306
     )

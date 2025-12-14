@@ -4,6 +4,14 @@ from dicttoxml import dicttoxml
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({
+        "message": "API is running",
+        "endpoints": ["/health", "/students", "/students/<id>"]
+    })
+
+
 def format_response(data, fmt="json"):
     if fmt == "xml":
         xml_bytes = dicttoxml(data, custom_root='students', attr_type=False)

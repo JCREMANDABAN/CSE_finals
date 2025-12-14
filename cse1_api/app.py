@@ -21,7 +21,7 @@ def format_response(data, fmt="json"):
 
 def validate_student_payload(data):
     errors = []
-    if not isinstance(data.get('name'), str) or not data['name'].strip():
+    if not isinstance(data.get('fullname'), str) or not data['fullname'].strip():
         errors.append("name is required and must be a non-empty string")
     if not isinstance(data.get('course'), str) or not data['course'].strip():
         errors.append("course is required and must be a non-empty string")
@@ -96,14 +96,14 @@ def get_student(sid):
 @app.route('/students/search', methods=['GET'])
 def search_students():
     fmt = request.args.get('format', 'json')
-    name = request.args.get('name')
+    fullname = request.args.get('full name')
     course = request.args.get('course')
     year_level = request.args.get('year_level', type=int)
 
     clauses, params = [], []
-    if name:
+    if fullname:
         clauses.append("name LIKE %s")
-        params.append(f"%{name}%")
+        params.append(f"%{fullname}%")
     if course:
         clauses.append("course = %s")
         params.append(course)
@@ -138,7 +138,7 @@ def add_student():
     try:
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO students (name, course, year_level) VALUES (%s, %s, %s);",
+            "INSERT INTO students (fullname, course, year_level) VALUES (%s, %s, %s);",
             (data['name'], data['course'], data['year_level'])
         )
         conn.commit()
@@ -165,7 +165,7 @@ def update_student(sid):
         cursor = conn.cursor()
         cursor.execute(
             "UPDATE students SET name=%s, course=%s, year_level=%s WHERE id=%s;",
-            (data['name'], data['course'], data['year_level'], sid)
+            (data['fullname'], data['course'], data['year_level'], sid)
         )
         conn.commit()
         if cursor.rowcount == 0:

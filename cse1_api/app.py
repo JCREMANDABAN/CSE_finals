@@ -7,7 +7,7 @@ import db
 app = Flask(__name__)
 
 # Replace with environment variable in production
-SECRET = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc2NTcwNzkyMH0.y5HvQrlCvB3ygTY67sjrMQXCUynnmx4JSBNbZWd-COA"
+SECRET = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
 
 def format_response(data, fmt="json"):
     fmt = (fmt or "json").lower()

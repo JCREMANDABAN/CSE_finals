@@ -96,7 +96,7 @@ def get_student(sid):
 @app.route('/students/search', methods=['GET'])
 def search_students():
     fmt = request.args.get('format', 'json')
-    fullname = request.args.get('full name')
+    fullname = request.args.get('fullname')
     course = request.args.get('course')
     year_level = request.args.get('year_level', type=int)
 
@@ -139,7 +139,7 @@ def add_student():
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO students (fullname, course, year_level) VALUES (%s, %s, %s);",
-            (data['name'], data['course'], data['year_level'])
+            (data['fullname'], data['course'], data['year_level'])
         )
         conn.commit()
         new_id = cursor.lastrowid
@@ -164,7 +164,7 @@ def update_student(sid):
     try:
         cursor = conn.cursor()
         cursor.execute(
-            "UPDATE students SET name=%s, course=%s, year_level=%s WHERE id=%s;",
+            "UPDATE students SET fullname=%s, course=%s, year_level=%s WHERE id=%s;",
             (data['fullname'], data['course'], data['year_level'], sid)
         )
         conn.commit()

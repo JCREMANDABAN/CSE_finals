@@ -164,9 +164,10 @@ def update_student(sid):
     try:
         cursor = conn.cursor()
         cursor.execute(
-            "UPDATE students SET fullname=%s, course=%s, year_level=%s WHERE student_id=%s;"
+            "UPDATE students SET fullname=%s, course=%s, year_level=%s WHERE idstudents=%s;",
             (data['fullname'], data['course'], data['year_level'], sid)
         )
+        
         conn.commit()
         if cursor.rowcount == 0:
             return jsonify({"error": "Student not found"}), 404
